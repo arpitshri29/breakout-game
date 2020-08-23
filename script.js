@@ -102,9 +102,25 @@ function movePaddle() {
     if (paddle.x < 0){
         paddle.x = 0;
     }
-
-
 }
+
+// Move ball on the canvas
+function moveBall() {
+    ball.x += ball.dx;
+    ball.y += ball.dy;
+
+    // Wall detection on x axis, i.e., left and right wall
+    if (ball.x + ball.size > canvas.width || ball.x - ball.size < 0){
+        ball.dx *= -1; // to reverse the ball to go to the other way if it hits the wall
+
+    }
+
+    // Wall detection on y axis, i.e., top and bottom wall
+    if (ball.y + ball.size > canvas.height || ball.y - ball.size < 0){
+        ball.dy *= -1;
+    }
+}
+
 
 // Draw on canvas
 function draw() {
@@ -120,6 +136,7 @@ function draw() {
 // Update canvas drawing and animation
 function update() {
     movePaddle();
+    moveBall();
 
     // Draw everything on canvas
     draw();
