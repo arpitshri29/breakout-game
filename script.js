@@ -140,8 +140,33 @@ function moveBall() {
                 ){
                     ball.dy *= -1;
                     brick.visible = false;
+                    increaseScore();
                 }
             }
+        })
+    });
+
+    // Reset the bricks if hit the bottom wall
+    if (ball.y + ball.size > canvas.height){
+        showAllBricks();
+        score = 0;
+    }
+}
+
+// Increase score
+function increaseScore() {
+    score ++;
+
+    if (score % (brickColumnCount * brickRowCount) === 0){
+        showAllBricks();
+    }
+}
+
+// Show all the bricks once the score is 100%
+function showAllBricks() {
+    bricks.forEach(column => {
+        column.forEach(brick => {
+            brick.visible = true;
         })
     })
 }
