@@ -119,6 +119,15 @@ function moveBall() {
     if (ball.y + ball.size > canvas.height || ball.y - ball.size < 0){
         ball.dy *= -1;
     }
+
+    // Paddle collision
+    if (
+        ball.x + ball.size > paddle.x &&    // This condition checks the left side of the paddle
+        ball.x + ball.size < paddle.x + paddle.w &&     // This condition checks the right side of the paddle
+        ball.y + ball.size > paddle.y       // This condition checks the height of the paddle
+    ){
+        ball.dy = - ball.speed;
+    }
 }
 
 
