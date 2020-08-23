@@ -123,11 +123,27 @@ function moveBall() {
     // Paddle collision
     if (
         ball.x + ball.size > paddle.x &&    // This condition checks the left side of the paddle
-        ball.x + ball.size < paddle.x + paddle.w &&     // This condition checks the right side of the paddle
+        ball.x - ball.size < paddle.x + paddle.w &&     // This condition checks the right side of the paddle
         ball.y + ball.size > paddle.y       // This condition checks the height of the paddle
     ){
         ball.dy = - ball.speed;
     }
+
+    // Bricks collision
+    bricks.forEach(column => {
+        column.forEach(brick => {
+            if (brick.visible){
+                if (ball.x - ball.size > brick.x &&     // This condition checks the left side of the brick
+                    ball.x + ball.size < brick.x + brick.w &&   // checks the right side of the brick
+                    ball.y + ball.size > brick.y &&     // checks the top of the brick
+                    ball.y - ball.size < brick.y + brick.h      // checks the bottom of the brick
+                ){
+                    ball.dy *= -1;
+                    brick.visible = false;
+                }
+            }
+        })
+    })
 }
 
 
